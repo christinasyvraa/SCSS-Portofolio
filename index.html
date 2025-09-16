@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio - Syvra Christinaa</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Basic Reset & Body Styles */
+      :root {
+        --primary-color: #6a5acd; /* SlateBlue */
+        --secondary-color: #f0e6ff; /* Lavender */
+        --text-color: #333;
+        --bg-color: #f9f9f9;
+        --card-bg: rgba(255, 255, 255, 0.8);
+        --border-radius: 12px;
+        --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth; /* CSS-only smooth scrolling */
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 0 20px;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        color: var(--primary-color);
+      }
+
+      .section-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 28px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(106, 90, 205, 0.4);
+      }
+
+      .btn-secondary {
+        background-color: transparent;
+        color: var(--primary-color);
+        border: 2px solid var(--primary-color);
+      }
+      .btn-secondary:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      /* Animations (run on load, not on scroll) */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes fadeInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+      @keyframes fadeInRight {
+        from {
+          opacity: 0;
+          transform: translateX(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+      }
+      .fade-in-left {
+        animation: fadeInLeft 0.8s ease-out forwards;
+      }
+      .fade-in-right {
+        animation: fadeInRight 0.8s ease-out forwards;
+      }
+
+      /* Navigation */
+      .navbar {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px 0;
+        background-color: rgba(255, 255, 255, 0.9); /* Static background */
+        backdrop-filter: blur(10px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: padding 0.3s ease;
+      }
+
+      .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 20px;
+      }
+
+      .nav-logo h3 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .nav-logo span {
+        color: var(--primary-color);
+      }
+
+      .nav-link {
+        margin: 0 15px;
+        text-decoration: none;
+        color: var(--text-color);
+        font-weight: 500;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -5px;
+        left: 0;
+        background-color: var(--primary-color);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--primary-color);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* Hamburger Menu (CSS-only) */
+      #hamburger-toggle {
+        display: none; /* Hide the checkbox */
+      }
+
+      .hamburger {
+        display: none; /* Hide the original div, we use the label */
+        cursor: pointer;
+      }
+
+      .hamburger-label {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 30px;
+        height: 25px;
+        z-index: 1001; /* Above nav menu */
+      }
+
+      .bar {
+        height: 3px;
+        width: 100%;
+        background-color: var(--text-color);
+        border-radius: 10px;
+        transition: all 0.3s ease-in-out;
+      }
+
+      @media (max-width: 768px) {
+        .nav-menu {
+          position: fixed;
+          left: -100%;
+          top: 0;
+          flex-direction: column;
+          justify-content: center;
+          background-color: white;
+          width: 80%;
+          height: 100vh;
+          text-align: center;
+          transition: left 0.3s ease;
+          box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-link {
+          margin: 20px 0;
+          font-size: 1.5rem;
+        }
+
+        .hamburger-label {
+          display: flex;
+        }
+
+        #hamburger-toggle:checked ~ .nav-menu {
+          left: 0;
+        }
+
+        #hamburger-toggle:checked ~ .hamburger-label .bar:nth-child(1) {
+          transform: translateY(9px) rotate(45deg);
+        }
+        #hamburger-toggle:checked ~ .hamburger-label .bar:nth-child(2) {
+          opacity: 0;
+        }
+        #hamburger-toggle:checked ~ .hamburger-label .bar:nth-child(3) {
+          transform: translateY(-9px) rotate(-45deg);
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        padding-top: 120px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+      .hero-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+        max-width: 1100px;
+        margin: auto;
+      }
+      .hero-content {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+      }
+      .hero-text {
+        max-width: 500px;
+      }
+      .hero-text h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+      .hero-text .highlight {
+        color: var(--primary-color);
+      }
+      .hero-subtitle {
+        font-size: 1.5rem;
+        margin: 10px 0 20px;
+        color: #555;
+      }
+      .hero-description {
+        margin-bottom: 30px;
+      }
+      .hero-buttons a {
+        margin-right: 15px;
+      }
+      .hero-image .image-container {
+        position: relative;
+        width: 350px;
+        height: 350px;
+      }
+      .hero-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 8px solid white;
+        box-shadow: var(--box-shadow);
+      }
+
+      /* Floating elements - Static position without JS */
+      .floating-element {
+        position: absolute;
+        background: white;
+        padding: 15px;
+        border-radius: 50%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-size: 2rem;
+        color: var(--primary-color);
+      }
+      .floating-element:nth-child(1) {
+        top: 20px;
+        left: -30px;
+      }
+      .floating-element:nth-child(2) {
+        bottom: 40px;
+        left: 20px;
+      }
+      .floating-element:nth-child(3) {
+        top: 150px;
+        right: -40px;
+      }
+
+      @media (max-width: 992px) {
+        .hero-content {
+          flex-direction: column-reverse;
+          text-align: center;
+        }
+        .hero-buttons {
+          justify-content: center;
+        }
+      }
+
+      /* About Section */
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: start;
+      }
+      .personal-info .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .personal-info .info-item i {
+        color: var(--primary-color);
+        margin-right: 15px;
+        width: 20px;
+        text-align: center;
+      }
+      .timeline {
+        position: relative;
+        padding-left: 30px;
+        border-left: 2px solid var(--primary-color);
+      }
+      .timeline-item {
+        margin-bottom: 30px;
+        position: relative;
+      }
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: -39px;
+        top: 5px;
+        width: 14px;
+        height: 14px;
+        background-color: white;
+        border: 3px solid var(--primary-color);
+        border-radius: 50%;
+      }
+      .timeline-date {
+        font-size: 0.9rem;
+        color: #777;
+        margin-bottom: 5px;
+      }
+      .institution {
+        font-weight: 500;
+        color: #555;
+      }
+      @media (max-width: 768px) {
+        .about-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Skills Section */
+      .skills-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+      .skills-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .skill-item {
+        text-align: center;
+      }
+      .skill-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+      .skill-bar {
+        width: 100%;
+        height: 10px;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 10px;
+      }
+      .skill-progress {
+        height: 100%;
+        background-color: var(--primary-color);
+        width: 0; /* Initial width for animation */
+      }
+
+      /* Skill bar keyframes and animations */
+      @keyframes fillBar {
+        from { width: 0; }
+      }
+      .skills-category .skill-item:nth-child(1) .skill-progress { animation: fillBar 1s ease-out 0.2s forwards; width: 95%; }
+      .skills-category .skill-item:nth-child(2) .skill-progress { animation: fillBar 1s ease-out 0.3s forwards; width: 90%; }
+      .skills-category .skill-item:nth-child(3) .skill-progress { animation: fillBar 1s ease-out 0.4s forwards; width: 88%; }
+      .skills-category .skill-item:nth-child(4) .skill-progress { animation: fillBar 1s ease-out 0.5s forwards; width: 85%; }
+      
+      .skills-category:nth-of-type(2) .skill-item:nth-child(1) .skill-progress { width: 82%; }
+      .skills-category:nth-of-type(2) .skill-item:nth-child(2) .skill-progress { width: 78%; }
+      .skills-category:nth-of-type(2) .skill-item:nth-child(3) .skill-progress { width: 80%; }
+      .skills-category:nth-of-type(2) .skill-item:nth-child(4) .skill-progress { width: 83%; }
+
+      .skills-category:nth-of-type(3) .skill-item:nth-child(1) .skill-progress { width: 75%; }
+      .skills-category:nth-of-type(3) .skill-item:nth-child(2) .skill-progress { width: 85%; }
+      .skills-category:nth-of-type(3) .skill-item:nth-child(3) .skill-progress { width: 70%; }
+      .skills-category:nth-of-type(3) .skill-item:nth-child(4) .skill-progress { width: 68%; }
+
+
+      /* Experience Section */
+      .experience-timeline .timeline-item {
+        background: white;
+        padding: 25px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+      }
+      .experience-header {
+        margin-bottom: 15px;
+      }
+      .company {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-left: 10px;
+      }
+      .duration {
+        float: right;
+        color: #777;
+        font-size: 0.9em;
+      }
+      .responsibilities {
+        list-style-type: none;
+      }
+      .responsibilities li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 10px;
+      }
+      .responsibilities li::before {
+        content: "\f00c"; /* check icon */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--primary-color);
+        position: absolute;
+        left: 0;
+        top: 3px;
+      }
+
+      /* Certificates */
+      .certificates {
+        margin-top: 60px;
+      }
+      .certificates-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+      }
+      .certificate-item {
+        background: white;
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        text-align: center;
+        transition: transform 0.3s ease;
+      }
+      .certificate-item:hover {
+        transform: translateY(-5px);
+      }
+      .certificate-icon i {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+      .issuer {
+        color: #666;
+        font-size: 0.9rem;
+      }
+      .cert-date {
+        font-weight: 500;
+        color: var(--primary-color);
+        display: block;
+        margin-top: 10px;
+      }
+
+      /* Projects Section */
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+      }
+      .project-card {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .project-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+      .project-image {
+        position: relative;
+      }
+      .project-image img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+      .project-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(106, 90, 205, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .project-card:hover .project-overlay {
+        opacity: 1;
+      }
+      .project-link {
+        color: white;
+        font-size: 1.8rem;
+        margin: 0 15px;
+        transition: transform 0.3s ease;
+      }
+      .project-link:hover {
+        transform: scale(1.2);
+      }
+      .project-content {
+        padding: 20px;
+      }
+      .project-tech {
+        margin-top: 15px;
+      }
+      .tech-tag {
+        display: inline-block;
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+        padding: 4px 10px;
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+      .glassmorphism {
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Contact Section */
+      .contact-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        background: white;
+        padding: 40px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+      }
+      .contact-method {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .contact-icon {
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        margin-right: 20px;
+      }
+      .contact-details a {
+        text-decoration: none;
+        color: #555;
+        transition: color 0.3s ease;
+      }
+      .contact-details a:hover {
+        color: var(--primary-color);
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-family: "Poppins", sans-serif;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px var(--secondary-color);
+      }
+      @media (max-width: 768px) {
+        .contact-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Footer */
+      .footer {
+        background-color: #222;
+        color: #eee;
+        padding: 60px 0 20px;
+      }
+      .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      .footer-info h3 {
+        font-size: 1.8rem;
+        color: white;
+      }
+      .footer-info h3 span {
+        color: var(--primary-color);
+      }
+      .footer-links ul {
+        list-style: none;
+      }
+      .footer-links a {
+        text-decoration: none;
+        color: #ccc;
+        transition: color 0.3s ease;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .footer-links a:hover {
+        color: var(--primary-color);
+      }
+      .social-links a {
+        color: #ccc;
+        font-size: 1.5rem;
+        margin-right: 15px;
+        transition: color 0.3s ease;
+      }
+      .social-links a:hover {
+        color: var(--primary-color);
+      }
+      .footer-bottom {
+        text-align: center;
+        border-top: 1px solid #444;
+        padding-top: 20px;
+        font-size: 0.9rem;
+        color: #aaa;
+      }
+      @media (max-width: 768px) {
+        .footer-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .footer-social {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-logo">
+          <h3>Syvra<span>.dev</span></h3>
+        </div>
+        <input type="checkbox" id="hamburger-toggle" />
+        <label for="hamburger-toggle" class="hamburger-label">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </label>
+        <div class="nav-menu" id="navMenu">
+          <a href="#home" class="nav-link">Beranda</a>
+          <a href="#about" class="nav-link">Tentang</a>
+          <a href="#skills" class="nav-link">Keahlian</a>
+          <a href="#experience" class="nav-link">Pengalaman</a>
+          <a href="#projects" class="nav-link">Proyek</a>
+          <a href="#contact" class="nav-link">Kontak</a>
+        </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero fade-in-up">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-text fade-in-left">
+            <h1>Halo, Saya <span class="highlight">Syvra Christina</span></h1>
+            <h2 class="hero-subtitle">Full Stack Developer & UI/UX Designer</h2>
+            <p class="hero-description">
+              Passionate developer dengan pengalaman 3+ tahun dalam membangun
+              aplikasi web modern dan menciptakan pengalaman pengguna yang
+              menarik.
+            </p>
+            <div class="hero-buttons">
+              <a href="#contact" class="btn btn-primary">Hubungi Saya</a>
+              <a href="#projects" class="btn btn-secondary">Lihat Karya</a>
+            </div>
+          </div>
+          <div class="hero-image fade-in-right">
+            <div class="image-container">
+              <img
+                src="./assets/image/Foto Syvra.jpg"
+                alt="Syvra Tambun"
+              />
+              <div class="floating-elements">
+                <div class="floating-element">
+                  <i class="fab fa-react"></i>
+                </div>
+                <div class="floating-element">
+                  <i class="fab fa-js-square"></i>
+                </div>
+                <div class="floating-element">
+                  <i class="fab fa-figma"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Tentang Saya</h2>
+          <p class="section-subtitle">
+            Mengenal lebih dekat tentang perjalanan saya
+          </p>
+        </div>
+        <div class="about-content">
+          <div class="about-text fade-in-left">
+            <h3>Profil Singkat</h3>
+            <p>
+              Saya adalah seorang Full Stack Developer yang berpengalaman dalam
+              membangun aplikasi web dari sisi frontend hingga backend. Dengan
+              latar belakang pendidikan Teknik Informatika dan passion yang kuat
+              dalam teknologi, saya selalu berusaha mengikuti perkembangan
+              teknologi terbaru dan menerapkannya dalam proyek-proyek yang saya
+              kerjakan.
+            </p>
+            <div class="personal-info">
+              <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <span>syvratambun@gmail.com</span>
+              </div>
+              <div class="info-item">
+                <i class="fab fa-whatsapp"></i>
+                <span>+62 812-3456-7890</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Jakarta, Indonesia</span>
+              </div>
+              <div class="info-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>S1 Informatika</span>
+              </div>
+            </div>
+          </div>
+          <div class="education-experience fade-in-right">
+            <div class="timeline-section">
+              <h3>Riwayat Pendidikan</h3>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-content">
+                    <h4>S1 Teknik Informatika</h4>
+                    <p class="institution">Institut Teknologi Del</p>
+                    <span class="timeline-date">2023 - 2027</span>
+                    <p>IPK: 3.75/4.00 | Cum Laude</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-content">
+                    <h4>SMA IPA</h4>
+                    <p class="institution">SMA Negeri 2 Lintongnihuta</p>
+                    <span class="timeline-date">2020 - 2023</span>
+                    <p>Juara 1 Olimpiade Informatika Tingkat Provinsi</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="skills">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Keahlian</h2>
+          <p class="section-subtitle">Teknologi dan tools yang saya kuasai</p>
+        </div>
+        <div class="skills-content">
+          <div class="skills-category fade-in-left">
+            <h3>Frontend Development</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-html5"></i></div>
+                <h4>HTML5</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-css3-alt"></i></div>
+                <h4>CSS3/SCSS</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-js-square"></i></div>
+                <h4>JavaScript</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-react"></i></div>
+                <h4>React.js</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-category fade-in-right">
+            <h3>Backend Development</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-node-js"></i></div>
+                <h4>Node.js</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-database"></i></div>
+                <h4>MongoDB</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-python"></i></div>
+                <h4>Python</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fas fa-server"></i></div>
+                <h4>Express.js</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skills-category fade-in-up">
+            <h3>Design & Tools</h3>
+            <div class="skills-grid">
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-figma"></i></div>
+                <h4>Figma</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-git-alt"></i></div>
+                <h4>Git</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-docker"></i></div>
+                <h4>Docker</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+              <div class="skill-item">
+                <div class="skill-icon"><i class="fab fa-aws"></i></div>
+                <h4>AWS</h4>
+                <div class="skill-bar">
+                  <div class="skill-progress"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Pengalaman Kerja</h2>
+                <p class="section-subtitle">Perjalanan karir profesional saya</p>
+            </div>
+            <div class="experience-timeline">
+                <div class="timeline-item fade-in-left">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <h3>Senior Full Stack Developer</h3>
+                            <span class="company">PT. Teknologi Digital Indonesia</span>
+                            <span class="duration">Jan 2023 - Sekarang</span>
+                        </div>
+                        <ul class="responsibilities">
+                            <li>Memimpin tim pengembangan aplikasi e-commerce dengan 10M+ pengguna aktif</li>
+                            <li>Mengoptimalkan performa aplikasi hingga 40% dengan implementasi caching Redis</li>
+                            <li>Mentoring 5 junior developers dan code review untuk menjaga kualitas kode</li>
+                            <li>Implementasi microservices architecture menggunakan Docker dan Kubernetes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in-right">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <h3>Full Stack Developer</h3>
+                            <span class="company">PT. Inovasi Kreatif Solutions</span>
+                            <span class="duration">Jun 2022 - Des 2022</span>
+                        </div>
+                        <ul class="responsibilities">
+                            <li>Mengembangkan sistem manajemen inventory untuk klien retail</li>
+                            <li>Membuat REST API dengan Node.js dan integrasi dengan sistem third-party</li>
+                            <li>Desain dan implementasi UI/UX untuk dashboard admin yang user-friendly</li>
+                            <li>Mengurangi bug production hingga 60% dengan implementasi unit testing</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <div class="experience-header">
+                            <h3>Frontend Developer Intern</h3>
+                            <span class="company">Startup TechFlow</span>
+                            <span class="duration">Feb 2022 - Mei 2022</span>
+                        </div>
+                        <ul class="responsibilities">
+                            <li>Mengembangkan komponen React.js untuk aplikasi fintech</li>
+                            <li>Implementasi responsive design untuk mobile dan desktop</li>
+                            <li>Kolaborasi dengan tim design untuk implementasi UI yang pixel-perfect</li>
+                            <li>Optimasi SEO dan performance menggunakan Next.js</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="certificates fade-in-up">
+                <h2 class="section-title">Sertifikat</h2>
+                <div class="certificates-grid">
+                    <div class="certificate-item">
+                        <div class="certificate-icon"><i class="fab fa-aws"></i></div>
+                        <h4>AWS Certified Developer</h4>
+                        <p class="issuer">Amazon Web Services</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                    <div class="certificate-item">
+                        <div class="certificate-icon"><i class="fab fa-google"></i></div>
+                        <h4>Google UX Design Certificate</h4>
+                        <p class="issuer">Google Career Certificates</p>
+                        <span class="cert-date">2023</span>
+                    </div>
+                    <div class="certificate-item">
+                        <div class="certificate-icon"><i class="fas fa-code"></i></div>
+                        <h4>Full Stack Web Development</h4>
+                        <p class="issuer">freeCodeCamp</p>
+                        <span class="cert-date">2022</span>
+                    </div>
+                    <div class="certificate-item">
+                        <div class="certificate-icon"><i class="fab fa-react"></i></div>
+                        <h4>React Developer Certification</h4>
+                        <p class="issuer">Meta (Facebook)</p>
+                        <span class="cert-date">2022</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Proyek Portfolio</h2>
+          <p class="section-subtitle">Beberapa karya yang telah saya buat</p>
+        </div>
+        <div class="projects-grid">
+          <div class="project-card glassmorphism fade-in-left">
+            <div class="project-image">
+              <img
+                src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="E-commerce Platform"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                  <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>E-commerce Platform</h3>
+              <p>Platform e-commerce full-stack dengan fitur pembayaran, manajemen inventory, dan dashboard admin yang komprehensif.</p>
+              <div class="project-tech">
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Node.js</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">Stripe</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card glassmorphism fade-in-up">
+            <div class="project-image">
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Task Management App"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                  <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Task Management App</h3>
+              <p>Aplikasi manajemen tugas dengan fitur real-time collaboration, drag & drop, dan notifikasi push.</p>
+              <div class="project-tech">
+                <span class="tech-tag">Vue.js</span>
+                <span class="tech-tag">Express</span>
+                <span class="tech-tag">Socket.io</span>
+                <span class="tech-tag">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card glassmorphism fade-in-right">
+            <div class="project-image">
+              <img
+                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Analytics Dashboard"
+              />
+              <div class="project-overlay">
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                  <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3>Analytics Dashboard</h3>
+              <p>Dashboard analitik dengan visualisasi data interaktif untuk monitoring performa bisnis real-time.</p>
+              <div class="project-tech">
+                <span class="tech-tag">Next.js</span>
+                <span class="tech-tag">D3.js</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">AWS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Hubungi Saya</h2>
+          <p class="section-subtitle">Mari berkolaborasi untuk mewujudkan ide Anda</p>
+        </div>
+        <div class="contact-content">
+          <div class="contact-info fade-in-left">
+            <h3>Mari Diskusi Proyek Anda</h3>
+            <p>Saya terbuka untuk diskusi mengenai peluang kerja sama, proyek freelance, atau sekadar berbagi ide tentang teknologi.</p>
+            <div class="contact-methods">
+              <div class="contact-method">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <a href="mailto:syvratambun@gmail.com">syvratambun@gmail.com</a>
+                </div>
+              </div>
+              <div class="contact-method">
+                <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+                <div class="contact-details">
+                  <h4>WhatsApp</h4>
+                  <a href="https://wa.me/6281234567890">+62 812-3456-7890</a>
+                </div>
+              </div>
+              <div class="contact-method">
+                <div class="contact-icon"><i class="fab fa-github"></i></div>
+                <div class="contact-details">
+                  <h4>GitHub</h4>
+                  <a href="#">/christinasyvraa</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form fade-in-right">
+            <form>
+              <div class="form-group">
+                <label for="name">Nama Lengkap</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label for="subject">Subjek</label>
+                <input type="text" id="subject" name="subject" required />
+              </div>
+              <div class="form-group">
+                <label for="message">Pesan</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-info">
+            <h3>Syvra<span>.dev</span></h3>
+            <p>Passionate Full Stack Developer yang selalu siap menghadapi tantangan baru dalam dunia teknologi.</p>
+          </div>
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="#home">Beranda</a></li>
+              <li><a href="#about">Tentang</a></li>
+              <li><a href="#skills">Keahlian</a></li>
+              <li><a href="#projects">Proyek</a></li>
+            </ul>
+          </div>
+          <div class="footer-social">
+            <h4>Follow Me</h4>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Syvra Tambun. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    </body>
+</html>
